@@ -1,0 +1,46 @@
+# GroupDocs.Parser.Mcp.Tests
+
+Integration tests and deployment how-to guides for GroupDocs.Parser.Mcp — the MCP server that exposes GroupDocs.Parser for .NET to AI agents (Claude, Cursor, VS Code / GitHub Copilot, and other MCP-compatible clients).
+
+This repo validates the **published distribution** end-to-end and doubles as a reference for using it from every supported channel. Currently the published distribution is Docker-only (the NuGet path is blocked by the 250 MB package-size limit on the engine DLL).
+
+## Primary repository
+
+- MCP server source: https://github.com/groupdocs-parser/GroupDocs.Parser.Mcp
+- Docker images: ghcr.io/groupdocs-parser/parser-net-mcp and docker.io/groupdocs/parser-net-mcp
+- NuGet package: (BLOCKED) — the engine DLL exceeds NuGet's 250 MB limit; awaiting upstream resolution.
+
+## Deployment channels covered by how-to guides
+
+- how-to/02-run-via-docker.md — container image + docker-compose (the recommended path)
+- how-to/04-use-with-claude-desktop.md — Claude Desktop config (with Docker)
+- how-to/05-use-with-vscode-copilot.md — VS Code / GitHub Copilot config (with Docker)
+- how-to/06-run-integration-tests.md — run this repo's test suite locally and in CI
+- (how-to/01 and how-to/03 are written for the NuGet/MCP-registry path and currently don't apply to Parser — kept for symmetry with sibling MCP repos.)
+
+## MCP tools exposed by the server
+
+- extract_text — extract plain text from a document (whole or per page). Truncates large outputs.
+- extract_images — save embedded images to storage as `<basename>_image<N>.<ext>` files; returns a saved-path list.
+- extract_metadata — author / title / dates / EXIF / XMP / IPTC / custom properties as JSON.
+- extract_tables — tables as Markdown (default — renders in chat) or structured JSON (`format='json'`).
+- extract_barcodes — decoded values + types + page + confidence + angle for each barcode / QR code.
+- get_document_info — file type + page count + size as JSON, without modifying the file.
+
+## Environment variables
+
+- GROUPDOCS_MCP_STORAGE_PATH — base folder for input + output (defaults to current working directory)
+- GROUPDOCS_MCP_OUTPUT_PATH — optional, routes output files (extract_images) to a separate folder
+- GROUPDOCS_LICENSE_PATH — path to GroupDocs.Total.lic; omit for evaluation mode (text outputs may be truncated / watermarked)
+
+## Key facts for AI agents
+
+- Testing the shipped distribution (currently Docker only), not the source. No project reference to the server.
+- Tool names on the wire are snake_case: extract_text, extract_images, extract_metadata, extract_tables, extract_barcodes, get_document_info.
+- Evaluation-mode is non-blocking — the engine still produces output, just possibly truncated / watermarked. Tests pass regardless of license.
+- Real fixtures live in `Files/` and are sourced from the upstream `GroupDocs.Parser-for-.NET` Examples repo. Drop new fixtures there and document provenance in `Files/README.md`.
+- Target framework is net10.0 only. .NET 10 SDK required.
+
+## License
+
+MIT — see LICENSE
