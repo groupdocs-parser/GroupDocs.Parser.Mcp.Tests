@@ -1,5 +1,16 @@
 name: integration
 
+# ─────────────────────────────────────────────────────────────────────────────
+# NUGET INTEGRATION SKIPPED — Parser is Docker-first (nupkg >250 MB, not on NuGet).
+# The suite launches the server via `dnx GroupDocs.Parser.Mcp@<version>` pulled from
+# NuGet.org, which cannot resolve while the package is unpublished. So the dnx
+# "Integration tests" step below is DISABLED; Restore + Build still validate that the
+# test project compiles.
+# REVERT when NuGet publishing is restored (see the main repo's publish_prod.yml
+# "REVERT TO NUGET" note): un-skip the "Integration tests" step (original command is
+# preserved in the comment above it).
+# ─────────────────────────────────────────────────────────────────────────────
+
 on:
   push:
     branches: [master, main]
@@ -80,11 +91,16 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
-      - name: Integration tests
-        run: >-
-          dotnet test --configuration Release --no-build
-          --logger "trx;LogFileName=integration.trx"
-          --logger "console;verbosity=detailed"
+      # SKIPPED — Docker-first, not on NuGet (see the file-header note). REVERT: replace
+      # this notice step with the original dnx test run:
+      #   - name: Integration tests
+      #     run: >-
+      #       dotnet test --configuration Release --no-build
+      #       --logger "trx;LogFileName=integration.trx"
+      #       --logger "console;verbosity=detailed"
+      - name: Integration tests (SKIPPED — Parser is Docker-first, not on NuGet)
+        run: |
+          echo "::notice::Integration tests skipped — GroupDocs.Parser.Mcp is not published to NuGet (>250 MB, Docker-first). The test project compiled (Restore + Build). Re-enable the dnx run when NuGet publishing is restored."
 
       - name: Upload test results
         if: always()
