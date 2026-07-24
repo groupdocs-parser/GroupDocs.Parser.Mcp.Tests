@@ -10,13 +10,13 @@
 
   <PropertyGroup Label="Package under test">
     <!-- Version of GroupDocs.Parser.Mcp on nuget.org to exercise.
-         Override on the command line: dotnet test -p:McpPackageVersion=26.7.1
+         Override on the command line: dotnet test -p:McpPackageVersion=26.7.2
 
          NOTE (Docker-first): GroupDocs.Parser.Mcp is not published to NuGet (nupkg
          >250 MB, embedded ONNX models), so the dnx-based integration run is SKIPPED
          in CI (see .github/workflows/integration.yml) and `dotnet test` locally will
          fail at the fixture's `dnx` launch. Revert this + the workflow skip when the
          package returns to NuGet. -->
-    <McpPackageVersion Condition="'$(McpPackageVersion)' == ''">26.7.1</McpPackageVersion>
+    <McpPackageVersion Condition="'$(McpPackageVersion)' == ''">26.7.2</McpPackageVersion>
   </PropertyGroup>
 </Project>
