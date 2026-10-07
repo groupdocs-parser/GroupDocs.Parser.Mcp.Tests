@@ -31,12 +31,16 @@ public class ExtractBarcodesTests
 
         var catalog = await ToolCatalog.LoadAsync(_fixture.Client);
 
+        // The first barcode call loads the engine's ONNX models (~19 s measured, up to ~28 s
+        // under load); later calls are ~5 s. That is slower than the client's default request
+        // timeout, so this one call gets explicit patience.
         var response = await _fixture.Client.CallToolAsync(
             catalog.ExtractBarcodes.Name,
             new Dictionary<string, object?>
             {
                 ["file"] = new Dictionary<string, object?> { ["filePath"] = SampleDocuments.BarcodesPdf },
-            });
+            },
+            cancellationToken: McpServerFixture.Patience());
 
         if (response.IsError == true)
             throw new InvalidOperationException(

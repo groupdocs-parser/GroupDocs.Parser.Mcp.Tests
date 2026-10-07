@@ -31,6 +31,7 @@ internal sealed class ToolCatalog
     public McpClientTool ExtractTables    => Resolve("extract_tables");
     public McpClientTool ExtractBarcodes  => Resolve("extract_barcodes");
     public McpClientTool GetDocumentInfo  => Resolve("document_info");
+    public McpClientTool GetLicenseStatus => Resolve("license_status");
 
     private McpClientTool Resolve(string keyword) =>
         _tools.FirstOrDefault(t => t.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase))

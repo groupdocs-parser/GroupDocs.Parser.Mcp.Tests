@@ -29,14 +29,16 @@ public class ToolDiscoveryTests
     }
 
     [Fact]
-    public async Task ListTools_ExposesAllSixParserTools()
+    public async Task ListTools_ExposesAllParserTools()
     {
         var catalog = await ToolCatalog.LoadAsync(_fixture.Client);
 
         foreach (var tool in catalog.All)
             _output.WriteLine($"tool: {tool.Name} — {tool.Description}");
 
-        Assert.Equal(6, catalog.All.Count);
+        // Seven since 26.9.0: GroupDocs.Mcp.Core added get_license_status to every server.
+        Assert.Equal(7, catalog.All.Count);
+        Assert.NotNull(catalog.GetLicenseStatus);
         Assert.NotNull(catalog.ExtractText);
         Assert.NotNull(catalog.ExtractImages);
         Assert.NotNull(catalog.ExtractMetadata);
