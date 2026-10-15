@@ -24,7 +24,7 @@ On **Windows specifically**, Docker Desktop must have access to the drive your s
 ```bash
 docker run --rm -i \
   -v $(pwd)/documents:/data \
-  ghcr.io/groupdocs-parser/parser-net-mcp:26.4.4
+  ghcr.io/groupdocs-parser/parser-net-mcp:26.10.2
 ```
 
 - `--rm` — delete the container when it exits.
@@ -38,7 +38,7 @@ The image sets `ENV GROUPDOCS_MCP_STORAGE_PATH=/data` and declares `VOLUME /data
 Each release pushes both `:<version>` (e.g. `:26.4.4`) and updates `:latest` to point at it. Pick the tag that matches how you want to handle upgrades:
 
 ```bash
-docker pull ghcr.io/groupdocs-parser/parser-net-mcp:26.4.4   # pinned to exact version
+docker pull ghcr.io/groupdocs-parser/parser-net-mcp:26.10.2   # pinned to exact version
 docker pull ghcr.io/groupdocs-parser/parser-net-mcp:latest   # floats to most recent push
 ```
 
@@ -83,7 +83,7 @@ Or once the server is running, the MCP `initialize` response includes `serverInf
   sleep 2
 ) | docker run --rm -i \
     -v $(pwd)/documents:/data \
-    ghcr.io/groupdocs-parser/parser-net-mcp:26.4.4 2>/dev/null
+    ghcr.io/groupdocs-parser/parser-net-mcp:26.10.2 2>/dev/null
 ```
 
 Expected: two JSON-RPC responses on stdout. The second includes `extract_text`
@@ -96,7 +96,7 @@ A reference compose file lives at [examples/docker-compose.yml](../examples/dock
 ```yaml
 services:
   groupdocs-parser-mcp:
-    image: ghcr.io/groupdocs-parser/parser-net-mcp:26.4.4
+    image: ghcr.io/groupdocs-parser/parser-net-mcp:26.10.2
     stdin_open: true
     tty: false
     environment:
@@ -125,7 +125,7 @@ Compose is useful for local development, but MCP clients like Claude Desktop / V
       "args": [
         "run", "--rm", "-i",
         "-v", "/absolute/path/to/documents:/data",
-        "ghcr.io/groupdocs-parser/parser-net-mcp:26.4.4"
+        "ghcr.io/groupdocs-parser/parser-net-mcp:26.10.2"
       ]
     }
   }
@@ -145,7 +145,7 @@ docker run --rm -i \
   -v $(pwd)/documents:/data \
   -v $(pwd)/secrets/GroupDocs.Total.lic:/licenses/GroupDocs.Total.lic:ro \
   -e GROUPDOCS_LICENSE_PATH=/licenses/GroupDocs.Total.lic \
-  ghcr.io/groupdocs-parser/parser-net-mcp:26.4.4
+  ghcr.io/groupdocs-parser/parser-net-mcp:26.10.2
 ```
 
 Without the license, `extract_metadata` returns the evaluation-mode error
@@ -155,7 +155,7 @@ Without the license, `extract_metadata` returns the evaluation-mode error
 
 ```bash
 # Inspect the image (entrypoint, env, user)
-docker inspect ghcr.io/groupdocs-parser/parser-net-mcp:26.4.4 \
+docker inspect ghcr.io/groupdocs-parser/parser-net-mcp:26.10.2 \
   --format '{{json .Config}}' | jq
 
 # Expected:

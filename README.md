@@ -13,7 +13,7 @@ tool against real document fixtures sourced from the upstream
 > is shipped **only via Docker** because the engine DLL (~235 MB) exceeds
 > NuGet.org's 250 MB package-size limit. The `dnx GroupDocs.Parser.Mcp@26.5.0
 > --yes` route is currently blocked. Integration tests target the Docker
-> image at `ghcr.io/groupdocs-parser/parser-net-mcp:26.5.0`. See the main
+> image at `ghcr.io/groupdocs-parser/parser-net-mcp:26.10.2`. See the main
 > repo's `changelog/001` for context.
 
 ## Documentation

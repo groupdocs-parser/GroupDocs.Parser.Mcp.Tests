@@ -76,7 +76,7 @@ where dnx.cmd        # Windows (from cmd)
       "args": [
         "run", "--rm", "-i",
         "-v", "/Users/you/Documents:/data",
-        "ghcr.io/groupdocs-parser/parser-net-mcp:26.4.4"
+        "ghcr.io/groupdocs-parser/parser-net-mcp:26.10.2"
       ]
     }
   }

@@ -139,7 +139,7 @@ bundles (SkiaSharp + ONNX Runtime for win / linux / macOS) exceeds NuGet.org's
 **250 MB hard package-size limit**. Until upstream resolves this, the package
 is published **only via Docker**:
 
-- `ghcr.io/groupdocs-parser/parser-net-mcp:26.5.0`
+- `ghcr.io/groupdocs-parser/parser-net-mcp:26.10.2`
 - `docker.io/groupdocs/parser-net-mcp:26.5.0`
 
 See [02 — Run via Docker](02-run-via-docker.md) for the working path.
